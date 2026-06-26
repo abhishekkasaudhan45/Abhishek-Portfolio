@@ -1,8 +1,8 @@
 /* Premium Crisp Light Theme Variables */
 :root {
     /* Beautiful Fluid Base Gradients */
-    --gradient-bg-start: #f8fafc;
-    --gradient-bg-end: #e2e8f0;
+    --gradient-bg-start: #1586d6;
+    --gradient-bg-end: #a9c2e2;
     
     --text-primary: #0f172a;
     --text-secondary: #475569;
@@ -853,7 +853,7 @@ nav ul a:hover::after {
         right: -100%;
         width: 75%; 
         height: calc(100vh - 80px);
-        background: rgba(255, 255, 255, 0.98);
+        background: rgba(197, 202, 204, 0.98);
         box-shadow: -10px 0 30px rgba(0,0,0,0.05);
         transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
     }
