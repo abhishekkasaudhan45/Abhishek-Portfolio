@@ -555,14 +555,17 @@ nav ul a.active-link::after { width: 100%; }
 }
 
 .project-banner {
-    height: 150px;
+    height: 190px;
     width: 100%;
     position: relative;
     display: flex;
     align-items: flex-end;
     overflow: hidden;
     border-bottom: 1px solid var(--border-clean);
+    background: var(--bg-elevated);  /* fills any letterbox gaps */
 }
+
+
 
 .bg-gradient-1 { background: linear-gradient(135deg, rgba(59,130,246,0.25) 0%, rgba(139,92,246,0.25) 100%); }
 .bg-gradient-2 { background: linear-gradient(135deg, rgba(20,184,166,0.25) 0%, rgba(59,130,246,0.25) 100%); }
