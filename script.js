@@ -30,18 +30,23 @@ updateProgress();
    ============================================================ */
 const menuBtn = document.getElementById('mobileMenuBtn');
 const navLinksList = document.getElementById('navLinksContainer');
+const navBackdrop = document.getElementById('navBackdrop');
 
-function closeMenu() {
-    menuBtn?.classList.remove('active');
-    navLinksList?.classList.remove('active');
-    menuBtn?.setAttribute('aria-expanded', 'false');
+function setMenu(open) {
+    menuBtn?.classList.toggle('active', open);
+    navLinksList?.classList.toggle('active', open);
+    navBackdrop?.classList.toggle('active', open);
+    document.body.classList.toggle('menu-open', open);
+    menuBtn?.setAttribute('aria-expanded', String(open));
 }
 
+function closeMenu() { setMenu(false); }
+
 menuBtn?.addEventListener('click', () => {
-    const isActive = menuBtn.classList.toggle('active');
-    navLinksList.classList.toggle('active');
-    menuBtn.setAttribute('aria-expanded', String(isActive));
+    setMenu(!menuBtn.classList.contains('active'));
 });
+
+navBackdrop?.addEventListener('click', closeMenu);
 
 document.querySelectorAll('.nav-link').forEach(link => {
     link.addEventListener('click', closeMenu);
@@ -50,6 +55,11 @@ document.querySelectorAll('.nav-link').forEach(link => {
 document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') closeMenu();
 });
+
+// Safety: if the viewport grows past the mobile breakpoint, force-close the menu
+window.addEventListener('resize', () => {
+    if (window.innerWidth > 768) closeMenu();
+}, { passive: true });
 
 /* ============================================================
    ACTIVE NAV LINK ON SCROLL
@@ -170,6 +180,40 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         }
     });
 });
+
+/* ============================================================
+   INTERACTIVE CARD TILT (pointer devices only)
+   ============================================================ */
+const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const isHoverDevice = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+if (isHoverDevice && !prefersReducedMotion) {
+    const tiltCards = document.querySelectorAll('.skill-card, .project-card-v2, .stat-box');
+    const MAX_TILT = 5; // degrees
+
+    tiltCards.forEach(card => {
+        let raf = null;
+
+        card.addEventListener('pointerenter', () => card.classList.add('is-tilting'));
+
+        card.addEventListener('pointermove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const px = (e.clientX - rect.left) / rect.width - 0.5;
+            const py = (e.clientY - rect.top) / rect.height - 0.5;
+            if (raf) cancelAnimationFrame(raf);
+            raf = requestAnimationFrame(() => {
+                card.style.transform =
+                    `perspective(900px) rotateX(${(-py * MAX_TILT).toFixed(2)}deg) rotateY(${(px * MAX_TILT).toFixed(2)}deg) translateY(-6px)`;
+            });
+        });
+
+        card.addEventListener('pointerleave', () => {
+            if (raf) cancelAnimationFrame(raf);
+            card.classList.remove('is-tilting');
+            card.style.transform = '';
+        });
+    });
+}
 
 /* ============================================================
    CONTACT FORM (Formspree AJAX)
