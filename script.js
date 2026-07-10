@@ -83,13 +83,15 @@ sections.forEach(s => navObserver.observe(s));
    SCROLLREVEAL (entry animations)
    ============================================================ */
 if (window.ScrollReveal) {
+    // Emil: reduced motion = gentler, not zero — keep the opacity fade, drop the travel.
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     ScrollReveal().reveal('.scroll-reveal', {
         delay: 100,
-        duration: 800,
-        distance: '30px',
+        duration: reduceMotion ? 300 : 800,
+        distance: reduceMotion ? '0px' : '30px',
         origin: 'bottom',
         opacity: 0,
-        easing: 'cubic-bezier(0.25, 1, 0.5, 1)',
+        easing: 'cubic-bezier(0.23, 1, 0.32, 1)',
         mobile: true
     });
 }

@@ -231,14 +231,15 @@ button { font-family: inherit; }
    ============================================================ */
 .glass-card {
     background: var(--card-surface);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(22px) saturate(1.35);          /* richer glass */
+    -webkit-backdrop-filter: blur(22px) saturate(1.35);
     border: 1px solid var(--border-clean);
     border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-soft);
+    /* layered: tinted drop shadow + faint inner top-light for real glass depth */
+    box-shadow: var(--shadow-soft), inset 0 1px 0 rgba(245,239,230,0.06);
     position: relative;
     z-index: 5;
-    transition: transform 0.4s var(--ease-out), border-color 0.4s ease, box-shadow 0.4s ease, background 0.4s ease;
+    transition: transform 0.25s var(--ease-out), border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
 }
 
 .glass-card.interactive-hover:hover {
@@ -340,12 +341,14 @@ nav ul a::after {
     content: '';
     position: absolute;
     bottom: 0; left: 0;
-    width: 0; height: 2px;
+    width: 100%; height: 2px;
     background: var(--primary-gradient);
-    transition: width 0.25s ease;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.25s var(--ease-out);   /* GPU underline instead of animating width */
 }
 nav ul a:hover::after,
-nav ul a.active-link::after { width: 100%; }
+nav ul a.active-link::after { transform: scaleX(1); }
 
 /* ============================================================
    HERO SECTION
@@ -399,10 +402,11 @@ nav ul a.active-link::after { width: 100%; }
 }
 
 .leftsection h1 {
-    font-size: 3.4rem;
-    font-weight: 700;
-    line-height: 1.15;
-    margin-bottom: 0.5rem;
+    font-size: clamp(3.2rem, 5.2vw, 4.4rem);   /* larger, fluid editorial scale */
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.03em;                   /* crisp tight display type */
+    margin-bottom: 0.7rem;
     color: var(--text-primary);
 }
 
@@ -592,12 +596,17 @@ nav ul a.active-link::after { width: 100%; }
    ============================================================ */
 .skills-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 1.8rem;
+    grid-template-columns: repeat(12, 1fr);   /* bento base */
+    gap: 1.6rem;
     width: 100%;
 }
 
-.skill-card { padding: 2rem; }
+/* Asymmetric 7/5 → 5/7 bento — deliberate, not a generic equal row */
+.skill-card { grid-column: span 6; padding: 2rem; }
+.skill-card:nth-child(1) { grid-column: span 7; }
+.skill-card:nth-child(2) { grid-column: span 5; }
+.skill-card:nth-child(3) { grid-column: span 5; }
+.skill-card:nth-child(4) { grid-column: span 7; }
 
 .skill-header {
     display: flex;
@@ -644,23 +653,43 @@ nav ul a.active-link::after { width: 100%; }
 .pill-progress {
     position: absolute;
     top: 0; left: 0; bottom: 0;
-    width: 0%;
+    width: var(--target-width, 80%);
     background: linear-gradient(90deg, rgba(20,184,166,0.10) 0%, rgba(59,130,246,0.10) 100%);
     border-right: 2px solid rgba(59,130,246,0.3);
     z-index: 1;
-    transition: width 1.1s var(--ease-out);
+    clip-path: inset(0 100% 0 0);           /* GPU reveal (Emil-endorsed) instead of animating width */
+    transition: clip-path 1s var(--ease-out);
 }
-.tech-pill.in-view .pill-progress { width: var(--target-width, 80%); }
+.tech-pill.in-view .pill-progress { clip-path: inset(0 0 0 0); }
 
 /* ============================================================
    PROJECTS
    ============================================================ */
 .projects-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 2.2rem;
+    grid-template-columns: repeat(6, 1fr);   /* bento base */
+    gap: 1.8rem;
     width: 100%;
 }
+
+/* Bento: first project is a full-width featured card (banner beside body);
+   the remaining two sit half-width below it. */
+.project-card-v2 { grid-column: span 3; }
+
+.project-card-v2.project-featured {
+    grid-column: span 6;
+    flex-direction: row;
+}
+.project-featured .project-banner {
+    width: 46%;
+    height: auto;
+    min-height: 320px;
+    border-bottom: none;
+    border-right: 1px solid var(--border-clean);
+}
+.project-featured .project-body { width: 54%; justify-content: center; }
+.project-featured h3 { font-size: 1.55rem; }
+.project-featured .project-summary { font-size: 1rem; }
 
 .project-card-v2 {
     display: flex;
@@ -774,7 +803,7 @@ nav ul a.active-link::after { width: 100%; }
     background: var(--card-surface);
     border: 1px solid var(--border-clean);
     color: var(--text-secondary);
-    transition: all 0.25s var(--ease-out);
+    transition: transform 200ms var(--ease-out), background 200ms ease, color 200ms ease, border-color 200ms ease;
 }
 .project-cta:hover {
     background: var(--primary-gradient);
@@ -891,7 +920,7 @@ nav ul a.active-link::after { width: 100%; }
     font-family: inherit;
     font-size: 0.95rem;
     outline: none;
-    transition: all 0.2s ease;
+    transition: border-color 200ms ease, box-shadow 200ms ease, background 200ms ease;
 }
 .interactive-input-group textarea { height: 140px; resize: vertical; }
 
@@ -902,7 +931,7 @@ nav ul a.active-link::after { width: 100%; }
     transform: translateY(-50%);
     color: var(--text-muted);
     pointer-events: none;
-    transition: all 0.25s var(--ease-out);
+    transition: top 200ms var(--ease-out), left 200ms var(--ease-out), font-size 200ms var(--ease-out), color 200ms ease, background 200ms ease;
 }
 .interactive-input-group textarea ~ label { top: 1.2rem; transform: none; }
 
@@ -936,7 +965,7 @@ nav ul a.active-link::after { width: 100%; }
     font-weight: 700;
     cursor: pointer;
     box-shadow: 0 6px 18px rgba(20,184,166,0.25);
-    transition: all 0.25s var(--ease-out);
+    transition: transform 200ms var(--ease-out), box-shadow 200ms var(--ease-out), background 200ms ease;
     min-height: 50px;
     display: flex;
     align-items: center;
@@ -989,7 +1018,7 @@ nav ul a.active-link::after { width: 100%; }
     padding: 0.6rem 0.8rem;
     border-radius: var(--radius-sm);
     background: rgba(245,239,230,0.03);
-    transition: all 0.2s ease;
+    transition: transform 200ms var(--ease-out), background 200ms ease, color 200ms ease;
 }
 .directory-row svg { flex-shrink: 0; color: var(--accent-teal); }
 .directory-row:hover { background: rgba(20,184,166,0.08); color: var(--text-primary); }
@@ -1002,7 +1031,7 @@ nav ul a.active-link::after { width: 100%; }
     border-radius: var(--radius-sm);
     background: rgba(245,239,230,0.03);
     border: 1px solid var(--border-clean);
-    transition: all 0.25s var(--ease-out);
+    transition: transform 200ms var(--ease-out), background 200ms ease, color 200ms ease, border-color 200ms ease;
 }
 .social-icon-row a:hover {
     color: #0a0a0a;
@@ -1053,7 +1082,7 @@ nav ul a.active-link::after { width: 100%; }
     opacity: 0;
     visibility: hidden;
     transform: translateY(10px);
-    transition: all 0.3s var(--ease-out);
+    transition: transform 250ms var(--ease-out), opacity 250ms var(--ease-out), visibility 250ms var(--ease-out), box-shadow 250ms var(--ease-out);
     z-index: 1500;
 }
 .back-to-top.visible { opacity: 1; visibility: visible; transform: translateY(0); }
@@ -1088,11 +1117,36 @@ nav ul a.active-link::after { width: 100%; }
     top: 0; left: -75%;
     width: 50%; height: 100%;
     background: linear-gradient(120deg, transparent, rgba(255,255,255,0.45), transparent);
-    transform: skewX(-20deg);
-    transition: left 0.6s var(--ease-out);
+    transform: translateX(0) skewX(-20deg);
+    transition: transform 0.6s var(--ease-out);   /* GPU sweep instead of animating left */
     pointer-events: none;
 }
-.btn-gradient:hover::after, .submit-glow-btn:hover::after { left: 135%; }
+.btn-gradient:hover::after, .submit-glow-btn:hover::after { transform: translateX(420%) skewX(-20deg); }
+
+/* Press feedback — every pressable element confirms the press (Emil: scale 0.95–0.98) */
+.btn:active,
+.icon-action-btn:active,
+.project-cta:active,
+.submit-glow-btn:active:not(:disabled),
+.social-icon-row a:active,
+.back-to-top:active,
+.menu-toggle:active {
+    transform: scale(0.97);
+}
+
+/* Emil: gate hover-motion so a touch tap doesn't trigger/stick a hover transform */
+@media (hover: none), (pointer: coarse) {
+    .glass-card.interactive-hover:hover,
+    .project-card-v2:hover,
+    .skill-card:hover .skill-icon-box,
+    .project-card-v2:hover .project-banner-img,
+    .btn-gradient:hover, .btn-glass:hover, .icon-action-btn:hover,
+    .project-cta:hover, .submit-glow-btn:hover,
+    .directory-row:hover, .social-icon-row a:hover,
+    .nav-logo, .back-to-top:hover {
+        transform: none;
+    }
+}
 
 /* Gentle float on the hero avatar */
 .hero-avatar-wrapper { animation: avatarFloat 6s ease-in-out infinite; }
@@ -1101,15 +1155,15 @@ nav ul a.active-link::after { width: 100%; }
     50%      { transform: translateY(-12px); }
 }
 
-/* Hero content entrance (staggered) */
-.leftsection > * { animation: heroRise 0.8s var(--ease-out) both; }
-.leftsection > *:nth-child(1) { animation-delay: 0.05s; }
-.leftsection > *:nth-child(2) { animation-delay: 0.15s; }
-.leftsection > *:nth-child(3) { animation-delay: 0.25s; }
-.leftsection > *:nth-child(4) { animation-delay: 0.35s; }
-.leftsection > *:nth-child(5) { animation-delay: 0.45s; }
-.leftsection > *:nth-child(6) { animation-delay: 0.55s; }
-.leftsection > *:nth-child(7) { animation-delay: 0.65s; }
+/* Hero content entrance (staggered 60ms — Emil's 30–80ms range) */
+.leftsection > * { animation: heroRise 0.55s var(--ease-out) both; }
+.leftsection > *:nth-child(1) { animation-delay: 0.00s; }
+.leftsection > *:nth-child(2) { animation-delay: 0.06s; }
+.leftsection > *:nth-child(3) { animation-delay: 0.12s; }
+.leftsection > *:nth-child(4) { animation-delay: 0.18s; }
+.leftsection > *:nth-child(5) { animation-delay: 0.24s; }
+.leftsection > *:nth-child(6) { animation-delay: 0.30s; }
+.leftsection > *:nth-child(7) { animation-delay: 0.36s; }
 @keyframes heroRise {
     from { opacity: 0; transform: translateY(24px); }
     to   { opacity: 1; transform: translateY(0); }
@@ -1124,11 +1178,11 @@ nav ul a.active-link::after { width: 100%; }
 nav ul a:hover { transform: translateY(-1px); }
 
 /* Skill icon pops on card hover */
-.skill-card .skill-icon-box { transition: transform 0.4s var(--ease-out); }
+.skill-card .skill-icon-box { transition: transform 0.25s var(--ease-out); }
 .skill-card:hover .skill-icon-box { transform: scale(1.12) rotate(-6deg); }
 
 /* Project banner image subtle zoom on hover */
-.project-banner-img { transition: transform 0.6s var(--ease-out); }
+.project-banner-img { transition: transform 0.4s var(--ease-out); }
 .project-card-v2:hover .project-banner-img { transform: scale(1.06); }
 
 /* Directory rows slide on hover */
@@ -1174,14 +1228,27 @@ nav ul a:hover { transform: translateY(-1px); }
     .projects-section .section-title { text-align: center; }
     .about-card { margin: 0 auto; }
 
-    .skills-container { grid-template-columns: 1fr; }
+    /* Bento collapses to 2 columns; reset the desktop span rules */
+    .skills-container { grid-template-columns: repeat(2, 1fr); }
+    .skill-card,
+    .skill-card:nth-child(1), .skill-card:nth-child(2),
+    .skill-card:nth-child(3), .skill-card:nth-child(4) { grid-column: auto; }
+
+    .projects-grid { grid-template-columns: repeat(2, 1fr); }
+    .project-card-v2 { grid-column: auto; }
+    .project-card-v2.project-featured { grid-column: span 2; flex-direction: column; }
+    .project-featured .project-banner {
+        width: 100%; height: 190px; min-height: 0;
+        border-right: none; border-bottom: 1px solid var(--border-clean);
+    }
+    .project-featured .project-body { width: 100%; justify-content: flex-start; }
+
     .dual-timeline-grid { grid-template-columns: 1fr; gap: 2rem; }
     .stats-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
-/* ---- TABLET: reclaim horizontal space instead of collapsing to 1 column ---- */
+/* ---- TABLET: slightly larger hero on portrait tablets ---- */
 @media (min-width: 700px) and (max-width: 968px) {
-    .skills-container { grid-template-columns: repeat(2, 1fr); }
     .hero-avatar-wrapper { width: 280px; height: 280px; }
     .leftsection h1 { font-size: 3rem; }
 }
@@ -1221,7 +1288,7 @@ nav ul a:hover { transform: translateY(-1px); }
     nav .right {
         position: fixed;
         top: 78px;
-        right: -100%;
+        right: 0;
         width: min(80%, 330px);
         height: calc(100vh - 78px);
         height: calc(100dvh - 78px);
@@ -1229,10 +1296,12 @@ nav ul a:hover { transform: translateY(-1px); }
         backdrop-filter: blur(20px);
         -webkit-backdrop-filter: blur(20px);
         box-shadow: -10px 0 30px rgba(0,0,0,0.4);
-        transition: right 0.4s var(--ease-out);
+        transform: translateX(100%);                    /* GPU drawer instead of animating 'right' */
+        transition: transform 0.4s var(--ease-drawer);  /* Emil's iOS drawer curve */
         overflow-y: auto;
+        will-change: transform;
     }
-    nav .right.active { right: 0; }
+    nav .right.active { transform: translateX(0); }
 
     /* Dim + tap-away backdrop when menu is open */
     .nav-backdrop {
@@ -1271,7 +1340,10 @@ nav ul a:hover { transform: translateY(-1px); }
 
     .section-title { font-size: 1.9rem; margin-bottom: 2.2rem; }
 
+    /* Single column: skills + projects fully stack */
+    .skills-container { grid-template-columns: 1fr; }
     .projects-grid { grid-template-columns: 1fr; }
+    .project-card-v2.project-featured { grid-column: auto; }
     .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
 
     .contact-flex-layout { flex-direction: column; }
@@ -1308,6 +1380,36 @@ nav ul a:hover { transform: translateY(-1px); }
 }
 
 @media (prefers-reduced-motion: reduce) {
-    * { animation: none !important; transition: none !important; }
-    .animated-bg { opacity: 0.5; }   /* keep it calm but present */
+    /* Emil: reduced motion = fewer & gentler, NOT zero.
+       Remove continuous & position-based movement; keep opacity/colour transitions. */
+
+    /* Stop all ambient/looping movement */
+    .bg-aurora, .bg-grid, .avatar-pulse-ring, .badge-dot,
+    .floating-badge, .hero-avatar-wrapper {
+        animation: none !important;
+    }
+    .animated-bg { opacity: 0.5; }
+
+    /* Entrances resolve to their final state — no travel */
+    .leftsection > *, .rightsection {
+        animation: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+    }
+
+    /* Reveal skill bars fully, no clip sweep */
+    .pill-progress { clip-path: inset(0 0 0 0) !important; transition: none !important; }
+
+    /* Neutralise transform-based hovers/tilts — colour, shadow & opacity still animate */
+    .glass-card.interactive-hover:hover,
+    .project-card-v2:hover, .project-card-v2:hover .project-banner-img,
+    .skill-card:hover .skill-icon-box,
+    .btn:hover, .btn:active, .icon-action-btn:hover,
+    .project-cta:hover, .submit-glow-btn:hover,
+    .directory-row:hover, .social-icon-row a:hover,
+    .back-to-top, .back-to-top:hover, .is-tilting {
+        transform: none !important;
+    }
+
+    html { scroll-behavior: auto; }
 }
