@@ -1,44 +1,37 @@
-# 🧑‍💻 Abhishek Kasaudhan — Developer Portfolio
+🧑‍💻 Abhishek Kasaudhan — Developer Portfolio
 
-> Personal portfolio website of Abhishek Kasaudhan, a Full-Stack Developer & AI/ML Engineer based in Lucknow, India. Built to showcase real production projects, technical skills, and professional background to recruiters and hiring teams.
 
-🔗 **Live Site:** [abhishekkasaudhan45.github.io/portfolio](https://abhishekkasaudhan45.github.io/portfolio)
+Personal portfolio website of Abhishek Kasaudhan, a Full-Stack Developer & AI/ML Engineer based in Lucknow, India. Built to showcase real production projects, technical skills, and professional background to recruiters and hiring teams.
 
----
 
-## ✨ Features
 
-- 🌙 **Dark luxury theme** — deep charcoal background with warm cream text and teal-blue gradient accents
-- 🔤 **Typed.js role rotator** — animated headline cycling through MERN Stack, Full-Stack, and AI/ML roles
-- 📊 **Animated skill bars** — scroll-triggered progress indicators for each technical skill
-- 🔢 **Animated stat counters** — production projects, CGPA, core technologies, graduation year
-- 🃏 **Project cards** — banner images, tech stack chips, live demo and GitHub CTA links
-- 🗂️ **Education timeline** — degree, institution, CGPA, and key achievements
-- 📬 **Working contact form** — powered by Formspree with AJAX submit and success/error states
-- 📍 **Active nav highlight** — nav link underlines as you scroll through sections
-- 🔝 **Back to top button** — appears after scrolling, smooth scroll back
-- 📱 **Fully responsive** — mobile (320px+), tablet, laptop, and desktop layouts
-- ♿ **Accessible** — semantic HTML, ARIA labels, visible focus states, `prefers-reduced-motion` support
+🔗 Live Site: abhishekkasaudhan45.github.io/portfolio
 
----
 
-## 🛠️ Tech Stack
+✨ Features
 
-| Layer | Technologies |
-|---|---|
-| Markup | HTML5 (semantic elements, ARIA attributes) |
-| Styling | CSS3 (Custom Properties, Flexbox, Grid, Glassmorphism, Animations) |
-| Typography | Google Fonts — Poppins |
-| JavaScript | Vanilla JS (Intersection Observer, fetch API, scroll events) |
-| Libraries | Typed.js, ScrollReveal |
-| Form Backend | Formspree (AJAX) |
-| Deployment | GitHub Pages / Netlify |
 
----
+🌙 Dark luxury theme — deep charcoal background with warm cream text and teal-blue gradient accents
+🔤 Typed.js role rotator — animated headline cycling through MERN Stack, Full-Stack, and AI/ML roles
+📊 Animated skill bars — scroll-triggered progress indicators for each technical skill
+🔢 Animated stat counters — production projects, CGPA, core technologies, graduation year
+🃏 Project cards — banner images, tech stack chips, live demo and GitHub CTA links
+🗂️ Education timeline — degree, institution, CGPA, and key achievements
+📬 Working contact form — powered by Formspree with AJAX submit and success/error states
+📍 Active nav highlight — nav link underlines as you scroll through sections
+🔝 Back to top button — appears after scrolling, smooth scroll back
+📱 Fully responsive — mobile (320px+), tablet, laptop, and desktop layouts
+♿ Accessible — semantic HTML, ARIA labels, visible focus states, prefers-reduced-motion support
 
-## 📁 Project Structure
 
-```
+
+🛠️ Tech Stack
+
+LayerTechnologiesMarkupHTML5 (semantic elements, ARIA attributes)StylingCSS3 (Custom Properties, Flexbox, Grid, Glassmorphism, Animations)TypographyGoogle Fonts — PoppinsJavaScriptVanilla JS (Intersection Observer, fetch API, scroll events)LibrariesTyped.js, ScrollRevealForm BackendFormspree (AJAX)DeploymentGitHub Pages / Netlify
+
+
+📁 Project Structure
+
 portfolio/
 ├── index.html          # Main HTML — all sections
 ├── style.css           # Complete stylesheet with design tokens
@@ -49,68 +42,54 @@ portfolio/
     ├── fitlip.png      # AI Health Assistant project banner
     ├── travel.png.png  # TripNow project banner
     └── Abhishek_cv.pdf # Downloadable resume
-```
 
----
 
-## 🚀 Sections
+🚀 Sections
 
-| Section | Description |
-|---|---|
-| **Hero** | Name, typed role, CTA buttons, tech badges, profile photo |
-| **Stats** | Animated counters — projects, CGPA, technologies, graduation year |
-| **About Me** | Background, philosophy, target roles |
-| **Technical Matrix** | 4 skill categories with animated progress bars |
-| **Featured Projects** | 3 production projects with banner, features, stack, and links |
-| **Timeline** | Education track + accolades and certifications |
-| **Get In Touch** | Contact form + profile card with social links |
+SectionDescriptionHeroName, typed role, CTA buttons, tech badges, profile photoStatsAnimated counters — projects, CGPA, technologies, graduation yearAbout MeBackground, philosophy, target rolesTechnical Matrix4 skill categories with animated progress barsFeatured Projects3 production projects with banner, features, stack, and linksTimelineEducation track + accolades and certificationsGet In TouchContact form + profile card with social links
 
----
 
-## 💼 Featured Projects
+💼 Featured Projects
 
-### 🏋️ AI Personal Health Assistant
+🏋️ AI Personal Health Assistant
+
 Final-year React Native mobile app delivering personalized 6-day workout plans. Built with Node.js/Express REST APIs, JWT authentication, and MongoDB. Documented with Postman and Swagger.
 
-### ✈️ TripNow — AI Travel Planner
-Full-stack AI-powered travel platform with itinerary generation, real-time weather integration, PDF export, and cloud deployment.
-🔗 [Live Demo](https://abhishekkasaudhan45.github.io/Treavel-website/)
+✈️ TripNow — AI Travel Planner
 
-### 🏠 Smart House Price Predictor
+Full-stack AI-powered travel platform with itinerary generation, real-time weather integration, PDF export, and cloud deployment.
+🔗 Live Demo
+
+🏠 Smart House Price Predictor
+
 End-to-end ML web app: EDA → feature engineering → Scikit-Learn regression model → Flask API → deployed on Render.
 
----
 
-## 🧑‍🎓 About Me
+🧑‍🎓 About Me
 
-**Abhishek Kasaudhan** — B.Tech Computer Science & Engineering, Babu Banarsi Das University, Lucknow (2022–2026), CGPA 7.8/10.
+Abhishek Kasaudhan — B.Tech Computer Science & Engineering, Babu Banarsi Das University, Lucknow (2022–2026), CGPA 7.8/10.
 
-Completed Data Science & AI Summer Training Program at BBD University. Actively seeking entry-level roles in **Software Engineering**, **Full-Stack Development**, or **AI/ML Engineering**.
+Completed Data Science & AI Summer Training Program at BBD University. Actively seeking entry-level roles in Software Engineering, Full-Stack Development, or AI/ML Engineering.
 
 📧 kasaudhan622@gmail.com
-🔗 [LinkedIn](https://www.linkedin.com/in/abhishek-kasaudhan-04a27b2a3)
-🐙 [GitHub](https://github.com/abhishekkasaudhan45)
+🔗 LinkedIn
+🐙 GitHub
 
----
 
-## 📦 Running Locally
+📦 Running Locally
 
 No build tools or dependencies required — just open in a browser.
 
-```bash
-git clone https://github.com/abhishekkasaudhan45/portfolio.git
+bashgit clone https://github.com/abhishekkasaudhan45/portfolio.git
 cd portfolio
 # Open index.html in your browser
 # Or use VS Code Live Server for hot reload
-```
 
----
 
-## 📄 License
+📄 License
 
-This project is open source under the [MIT License](LICENSE). Feel free to use the structure as inspiration — please don't copy the personal content (name, photos, projects, resume).
+This project is open source under the MIT License. Feel free to use the structure as inspiration — please don't copy the personal content (name, photos, projects, resume).
 
----
 
 <p align="center">
   Built with 💙 by <a href="https://github.com/abhishekkasaudhan45">Abhishek Kasaudhan</a>
