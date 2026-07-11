@@ -5,7 +5,7 @@ Personal portfolio website of Abhishek Kasaudhan, a Full-Stack Developer & AI/ML
 
 
 
-🔗 Live Site: abhishekkasaudhan45.github.io/portfolio
+🔗 Live Site: https://www.abhishektech.me/
 
 
 ✨ Features
@@ -80,7 +80,7 @@ Completed Data Science & AI Summer Training Program at BBD University. Actively 
 
 No build tools or dependencies required — just open in a browser.
 
-bashgit clone https://github.com/abhishekkasaudhan45/portfolio.git
+bashgit clone https://github.com/abhishekkasaudhan45/Abhishek-Portfolio
 cd portfolio
 # Open index.html in your browser
 # Or use VS Code Live Server for hot reload
